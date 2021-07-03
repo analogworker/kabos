@@ -12,9 +12,6 @@ uefi = "0.11.0"
 uefi-services = "0.8.0"
 rlibc = "1.0.0"
 
-[unstable]
-build-std = ["core", "compiler_builtins", "alloc"]
-
 [[bin]]
 name = "kabos"
 path = "main.rs"
