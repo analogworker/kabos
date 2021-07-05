@@ -57,7 +57,7 @@ def run_command():
         "-vga", "std",
 
         # Use a modern machine, with acceleration if possible.
-        "-machine", "q35,accel=kvm:tcg",
+        "-machine", "q35,accel=tcg",
 
         # Allocate some memory
         "-m", "128M",
@@ -73,10 +73,11 @@ def run_command():
         #
         # Connect the serial port to the host. OVMF is kind enough to connect
         # the UEFI stdout and stdin to that port too.
-        "-serial", "stdio",
+        # "-serial", "stdio",
 
         # Setup monitor
-        "-monitor", "vc:1024x768",
+        # "-monitor", "vc:1024x768",
+        "-monitor", "stdio",
     ]
 
     sp.run([QEMU] + qemu_flags).check_returncode()
