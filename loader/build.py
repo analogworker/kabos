@@ -14,7 +14,7 @@ QEMU = "qemu-system-" + ARCH
 
 WORKSPACE_DIR = Path(__file__).resolve().parents[0]
 BUILD_DIR = WORKSPACE_DIR / "build"
-CARGO_BUILD_DIR = WORKSPACE_DIR / "target" / TARGET / CONFIG
+CARGO_BUILD_DIR = WORKSPACE_DIR / ".." / "target" / TARGET / CONFIG
 
 OVMF_FW = WORKSPACE_DIR / "OVMF_CODE.fd"
 OVMF_VARS = WORKSPACE_DIR / "OVMF_VARS-1024x768.fd"
@@ -28,14 +28,14 @@ def run_build(*flags):
 def build_command():
     "Builds UEFI application"
 
-    run_build("--package", "kabos")
+    run_build("--package", "loader")
 
     # Create build folder
     boot_dir = BUILD_DIR / "EFI" / "BOOT"
     boot_dir.mkdir(parents=True, exist_ok=True)
 
     # Copy the build EFI application to the build directory
-    built_file = CARGO_BUILD_DIR / "kabos.efi"
+    built_file = CARGO_BUILD_DIR / "loader.efi"
     output_file = boot_dir / "BootX64.efi"
     shutil.copy2(built_file, output_file)
 

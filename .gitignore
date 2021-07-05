@@ -13,6 +13,12 @@
 
 # Added by cargo
 
-/target
-/build
+target
+build
 venv
+
+# Added by cargo
+#
+# already existing elements were commented out
+
+#/target
