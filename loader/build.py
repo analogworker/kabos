@@ -15,6 +15,7 @@ QEMU = "qemu-system-" + ARCH
 WORKSPACE_DIR = Path(__file__).resolve().parents[0]
 BUILD_DIR = WORKSPACE_DIR / "build"
 CARGO_BUILD_DIR = WORKSPACE_DIR / ".." / "target" / TARGET / CONFIG
+KERNEL_BUILD_DIR = WORKSPACE_DIR / ".." / "target" / "x86_64-unknown-none" / "debug"
 
 OVMF_FW = WORKSPACE_DIR / "OVMF_CODE.fd"
 OVMF_VARS = WORKSPACE_DIR / "OVMF_VARS-1024x768.fd"
@@ -38,6 +39,11 @@ def build_command():
     built_file = CARGO_BUILD_DIR / "loader.efi"
     output_file = boot_dir / "BootX64.efi"
     shutil.copy2(built_file, output_file)
+
+    # Copy pre-built kernel file
+    kernel_input_file = KERNEL_BUILD_DIR / "kernel.elf"
+    kernel_output_file = BUILD_DIR / "kernel.elf"
+    shutil.copy2(kernel_input_file, kernel_output_file)
 
     # Write a startup script to make UEFI Shell load into
     # the application automatically
